@@ -1,7 +1,7 @@
-import css from "./SearchBox.module.css";
+import css from "./SearchBar.module.css";
 import { useId } from "react";
 
-export const SearchBox = ({ value, onFilter }) => {
+export const SearchBar = ({ value, onFilter }) => {
   const usernameFieldIdsearch = useId();
   return (
     <div className={css.btnWrap}>
