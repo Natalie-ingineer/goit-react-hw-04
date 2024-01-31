@@ -1,19 +1,19 @@
 import css from "./SearchBar.module.css";
 import { useId } from "react";
 
-export const SearchBar = ({ value, onFilter }) => {
-  const usernameFieldIdsearch = useId();
+export const SearchBar = ({ onSubmit }) => {
+  // const usernameFieldIdsearch = useId();
   return (
-    <div className={css.btnWrap}>
-      <label className={css.description} htmlFor={usernameFieldIdsearch}>
-        Find contacts by name
-      </label>
-      <input
-        type="text"
-        value={value}
-        onChange={(evt) => onFilter(evt.target.value)}
-        id={usernameFieldIdsearch}
-      />
-    </div>
+    <header>
+      <form>
+        <input
+          type="text"
+          autocomplete="off"
+          autofocus
+          placeholder="Search images and photos"
+        />
+        <button type="submit">Search</button>
+      </form>
+    </header>
   );
 };

@@ -3,8 +3,14 @@ import { ImageCard } from "../ImageCard/ImageCard";
 
 export const ImageGallery = () => {
   return (
-    <div>
-      <ImageCard></ImageCard>
-    </div>
+    <ul>
+      {/* Набір елементів списку із зображеннями */}
+      <li>
+        <div>
+          <img src="" alt="" />
+          <ImageCard></ImageCard>
+        </div>
+      </li>
+    </ul>
   );
 };

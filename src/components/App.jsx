@@ -12,7 +12,7 @@ export const App = () => {
 
   return;
   <>
-    <SearchBar></SearchBar>
+    <SearchBar onSubmit={onSubmit}></SearchBar>
     <LoadMoreBtn></LoadMoreBtn>
     <ImageGallery></ImageGallery>
     <Loader></Loader>
