@@ -1,13 +1,18 @@
 import css from "./SearchBar.module.css";
 import { useId } from "react";
 
-export const SearchBar = ({ onSubmit }) => {
-
+export const SearchBar = ({ onSearch }) => {
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    onSearch(evt.target.elements.query.value);
+    evt.target.reset();
+  };
   // const usernameFieldIdsearch = useId();
   return (
     <header>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input
+          name="query"
           type="text"
           autocomplete="off"
           autofocus
