@@ -5,7 +5,7 @@ import { ImageModal } from "./ImageModal/ImageModal";
 import { ErrorMessage } from "./ErrorMessage/ErrorMessage";
 import { LoadMoreBtn } from "./LoadMoreBtn/LoadMoreBtn";
 import { Loader } from "./Loader/Loader";
-import toast, { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
 
 import axios from "axios";
 
@@ -13,16 +13,20 @@ const BASE_URL = "https://api.unsplash.com/search/photos";
 const clientID = "eweU7n7QNHGPet9x6rguFqq5agNu-FnnqAkMJV9TwHY";
 
 export const App = () => {
-  const [articles, setArticles] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [articles, setArticles] = useState({
+    items: [],
+    loading: false,
+    error: false,
+  });
 
   const notify = () => toast("Here is your toast.");
   const searchArticles = async (query) => {
     try {
-      setLoading(true);
-      setError(false);
-      setArticles([]);
+      setArticles({
+        items: [],
+        loading: true,
+        error: false,
+      });
       const queryParams = {
         client_id: clientID,
         query: `${query}`,
@@ -30,25 +34,28 @@ export const App = () => {
         orientation: "landscape",
         page: 1,
       };
+
       const response = await axios.get(BASE_URL, { params: queryParams });
-      setArticles(response.data.results);
+
+      setArticles((prevArticles) => ({
+        ...prevArticles,
+        items: response.data.results,
+      }));
     } catch (error) {
-      setError(true);
+      setArticles((prevArticles) => ({ ...prevArticles, error: true }));
     } finally {
-      setLoading(false);
+      setArticles((prevArticles) => ({ ...prevArticles, loading: false }));
     }
   };
 
   return (
     <>
       <SearchBar onSearch={searchArticles}></SearchBar>
-      {loading && <Loader load={loading} />}
-      {error && <ErrorMessage />}
-      {articles.length > 0 && <ImageGallery items={articles} />}
-      <div>
-        <button onClick={notify}>Make me a toast</button>
-        <Toaster />
-      </div>
+      {articles.loading && <Loader load={articles.loading} />}
+      {articles.error && <ErrorMessage />}
+      {articles.items.length > 0 && <ImageGallery items={articles.items} />}
+      <Toaster />
+
       <LoadMoreBtn></LoadMoreBtn>
 
       <ImageModal></ImageModal>
