@@ -20,7 +20,7 @@ export const App = () => {
   const [error, setError] = useState(false);
 
   const searchArticles = async (newQuery) => {
-    setQuery(newQuery);
+    setQuery(`${Date.now()}/${newQuery}`);
     setPage(1);
     setArticles([]);
   };
@@ -41,7 +41,7 @@ export const App = () => {
 
         const queryParams = {
           client_id: clientID,
-          query: `${query}`,
+          query: `${query.split("/")[1]}`,
           page: `${page}`,
           per_page: 10,
         };
