@@ -13,22 +13,16 @@ const BASE_URL = "https://api.unsplash.com/search/photos";
 const clientID = "eweU7n7QNHGPet9x6rguFqq5agNu-FnnqAkMJV9TwHY";
 
 export const App = () => {
-  const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
-  const [articles, setArticles] = useState({
-    items: [],
-    loading: false,
-    error: false,
-  });
+  const [page, setPage] = useState(1);
+  const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const searchArticles = async (newQuery) => {
     setQuery(newQuery);
     setPage(1);
-    setArticles({
-      items: [],
-      loading: false,
-      error: false,
-    });
+    setArticles([]);
   };
 
   const handleLoadMore = () => {
@@ -42,11 +36,8 @@ export const App = () => {
 
     async function fetchData() {
       try {
-        setArticles((prevArticles) => ({
-          ...prevArticles,
-          loading: true,
-          error: false,
-        }));
+        setLoading(true);
+        setError(false);
 
         const queryParams = {
           client_id: clientID,
@@ -57,16 +48,14 @@ export const App = () => {
 
         const response = await axios.get(BASE_URL, { params: queryParams });
 
-        setArticles((prevArticles) => {
-          return {
-            ...prevArticles,
-            items: [...prevArticles.items, ...response.data.results],
-          };
-        });
+        setArticles((prevArticles) => [
+          ...prevArticles,
+          ...response.data.results,
+        ]);
       } catch (error) {
-        setArticles((prevArticles) => ({ ...prevArticles, error: true }));
+        setError(true);
       } finally {
-        setArticles((prevArticles) => ({ ...prevArticles, loading: false }));
+        setLoading(false);
       }
     }
 
@@ -76,10 +65,10 @@ export const App = () => {
   return (
     <>
       <SearchBar onSearch={searchArticles} />
-      {articles.error && <ErrorMessage />}
-      {articles.items.length > 0 && <ImageGallery items={articles.items} />}
-      {articles.loading && <Loader load={articles.loading} />}
-      {articles.items.length > 0 && !articles.loading && (
+      {error && <ErrorMessage />}
+      {articles.length > 0 && <ImageGallery items={articles} />}
+      {loading && <Loader load={loading} />}
+      {articles.length > 0 && !loading && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
       <Toaster position="bottom-center" />
