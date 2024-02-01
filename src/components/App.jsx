@@ -43,7 +43,7 @@ export const App = () => {
     <>
       <SearchBar onSearch={searchArticles}></SearchBar>
       {loading && <Loader load={loading} />}
-      {error && <b>Oops, there was an error, please try reloading 😢</b>}
+      {error && <ErrorMessage />}
       {articles.length > 0 && <ImageGallery items={articles} />}
       <div>
         <button onClick={notify}>Make me a toast</button>
