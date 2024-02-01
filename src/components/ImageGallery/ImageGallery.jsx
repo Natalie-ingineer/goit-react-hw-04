@@ -1,16 +1,21 @@
 import css from "./ImageGallery.module.css";
 import { ImageCard } from "../ImageCard/ImageCard";
 
-export const ImageGallery = () => {
+export const ImageGallery = ({ items }) => {
+  // if (!items) {
+  //   return <div>No images available</div>;
+  // }
+
   return (
     <ul>
-      {/* Набір елементів списку із зображеннями */}
-      <li>
-        <div>
-          <img src="" alt="" />
-          <ImageCard></ImageCard>
-        </div>
-      </li>
+      {items.map((item) => (
+        <li key={item.id}>
+          <div>
+            <img src={item.urls.small} alt={item.alt_description} />
+            <ImageCard></ImageCard>
+          </div>
+        </li>
+      ))}
     </ul>
   );
 };
