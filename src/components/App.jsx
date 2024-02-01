@@ -13,8 +13,7 @@ const BASE_URL = "https://api.unsplash.com/search/photos";
 const clientID = "eweU7n7QNHGPet9x6rguFqq5agNu-FnnqAkMJV9TwHY";
 
 export const App = () => {
-  const [nameFilter, setNameFilter] = useState("");
-  const [users, setUsers] = useState(0);
+  const [articles, setArticles] = useState([]);
 
   const notify = () => toast("Here is your toast.");
   const searchArticles = async (query) => {
@@ -27,8 +26,7 @@ export const App = () => {
         page: 1,
       };
       const response = await axios.get(BASE_URL, { params: queryParams });
-      console.log(response.data.results);
-      // setUsers(response);
+      setArticles(response.data.results);
     } catch (error) {
       console.error("Помилка під час запиту до API Unsplash:", error);
     }
@@ -37,6 +35,15 @@ export const App = () => {
   return (
     <>
       <SearchBar onSearch={searchArticles}></SearchBar>
+      {articles.length > 0 && (
+        <ul>
+          {articles.map((article) => (
+            <li key={article.id}>
+              <a href={article.urls.small}>{article.alt_description}</a>
+            </li>
+          ))}
+        </ul>
+      )}
       <div>
         <button onClick={notify}>Make me a toast</button>
         <Toaster />
