@@ -1,9 +1,9 @@
 import css from "./ImageCard.module.css";
 
-export const ImageCard = () => {
+export const ImageCard = ({ photo, description }) => {
   return (
     <div>
-      <img src="" alt="" />
+      <img src={photo} alt={description} />
     </div>
   );
 };

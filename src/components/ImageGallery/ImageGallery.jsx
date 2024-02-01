@@ -6,10 +6,10 @@ export const ImageGallery = ({ items }) => {
     <ul>
       {items.map((item) => (
         <li key={item.id}>
-          <div>
-            <img src={item.urls.small} alt={item.alt_description} />
-            <ImageCard></ImageCard>
-          </div>
+          <ImageCard
+            photo={item.urls.small}
+            description={item.alt_description}
+          ></ImageCard>
         </li>
       ))}
     </ul>
