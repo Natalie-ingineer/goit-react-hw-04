@@ -6,11 +6,7 @@ import { ErrorMessage } from "./ErrorMessage/ErrorMessage";
 import { LoadMoreBtn } from "./LoadMoreBtn/LoadMoreBtn";
 import { Loader } from "./Loader/Loader";
 import { Toaster } from "react-hot-toast";
-
-import axios from "axios";
-
-const BASE_URL = "https://api.unsplash.com/search/photos";
-const clientID = "eweU7n7QNHGPet9x6rguFqq5agNu-FnnqAkMJV9TwHY";
+import { fetchArticles } from "../api";
 
 export const App = () => {
   const [query, setQuery] = useState("");
@@ -38,20 +34,8 @@ export const App = () => {
       try {
         setLoading(true);
         setError(false);
-
-        const queryParams = {
-          client_id: clientID,
-          query: `${query.split("/")[1]}`,
-          page: `${page}`,
-          per_page: 10,
-        };
-
-        const response = await axios.get(BASE_URL, { params: queryParams });
-
-        setArticles((prevArticles) => [
-          ...prevArticles,
-          ...response.data.results,
-        ]);
+        const fetchedData = await fetchArticles(query.split("/")[1], page);
+        setArticles((prevArticles) => [...prevArticles, ...fetchedData]);
       } catch (error) {
         setError(true);
       } finally {
