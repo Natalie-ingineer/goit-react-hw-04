@@ -15,11 +15,13 @@ const clientID = "eweU7n7QNHGPet9x6rguFqq5agNu-FnnqAkMJV9TwHY";
 export const App = () => {
   const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const notify = () => toast("Here is your toast.");
   const searchArticles = async (query) => {
     try {
       setLoading(true);
+      setError(false);
       setArticles([]);
       const queryParams = {
         client_id: clientID,
@@ -30,9 +32,10 @@ export const App = () => {
       };
       const response = await axios.get(BASE_URL, { params: queryParams });
       setArticles(response.data.results);
-      setLoading(false);
     } catch (error) {
-      console.error("Помилка під час запиту до API Unsplash:", error);
+      setError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -40,6 +43,7 @@ export const App = () => {
     <>
       <SearchBar onSearch={searchArticles}></SearchBar>
       {loading && <Loader load={loading} />}
+      {error && <b>Oops, there was an error, please try reloading 😢</b>}
       {articles.length > 0 && <ImageGallery items={articles} />}
       <div>
         <button onClick={notify}>Make me a toast</button>
@@ -47,7 +51,6 @@ export const App = () => {
       </div>
       <LoadMoreBtn></LoadMoreBtn>
 
-      <ErrorMessage></ErrorMessage>
       <ImageModal></ImageModal>
     </>
   );
