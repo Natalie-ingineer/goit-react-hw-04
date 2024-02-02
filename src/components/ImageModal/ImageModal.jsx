@@ -18,27 +18,12 @@ Modal.setAppElement("#root");
 
 // ReactDOM.render(<App />, appElement);
 
-export const ImageModal = ({ photo, description }) => {
-  const [modalIsOpen, setIsOpen] = useState(false);
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
+export const ImageModal = ({ photoOpenModal, isOpen, onClose }) => {
   return (
     <div>
-      <button onClick={openModal}>Open Modal</button>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <button onClick={closeModal}>close</button>
-        <img src={photo} alt={description} />
+      <Modal isOpen={isOpen} style={customStyles}>
+        <img src={photoOpenModal} />
+        <button onClick={() => onClose()}>close</button>
       </Modal>
     </div>
   );

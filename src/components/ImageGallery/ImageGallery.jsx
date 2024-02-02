@@ -2,7 +2,7 @@ import css from "./ImageGallery.module.css";
 import { ImageCard } from "../ImageCard/ImageCard";
 import { ImageModal } from "../ImageModal/ImageModal";
 
-export const ImageGallery = ({ items, onClickOpenModal }) => {
+export const ImageGallery = ({ items }) => {
   return (
     <ul>
       {items.map((item) => (
@@ -10,16 +10,13 @@ export const ImageGallery = ({ items, onClickOpenModal }) => {
           <ImageCard
             photo={item.urls.small}
             description={item.alt_description}
-            onOpenModal={onClickOpenModal}
+            // onClick={() => openModal(item)}
           ></ImageCard>
-          {
-            (onClickOpenModal = { onClickOpenModal } && (
-              <ImageModal
-                photo={item.urls.regular}
-                description={item.alt_description}
-              />
-            ))
-          }
+
+          <ImageModal
+            photoModal={item.urls.regular}
+            description={item.alt_description}
+          />
         </li>
       ))}
     </ul>
