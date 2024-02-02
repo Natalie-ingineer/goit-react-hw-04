@@ -1,40 +1,57 @@
 import css from "./ImageModal.module.css";
-import Modal from "react-modal";
+// import { openModal, afterOpenModal, closeModal } from "../App";
+// ReactModal.setAppElement("#main");
 
-export const ImageModal = () => {
-  return <div></div>;
+// class ExampleApp extends React.Component {
+//   constructor() {
+//     super();
+//     this.state = {
+//       showModal: false,
+//     };
+
+//     this.handleOpenModal = this.handleOpenModal.bind(this);
+//     this.handleCloseModal = this.handleCloseModal.bind(this);
+//   }
+
+//   handleOpenModal() {
+//     this.setState({ showModal: true });
+//   }
+
+//   handleCloseModal() {
+//     this.setState({ showModal: false });
+//   }
+
+//   render() {
+//     return (
+//       <div>
+//         <button onClick={this.handleOpenModal}>Trigger Modal</button>
+//         <ReactModal
+//           isOpen={this.state.showModal}
+//           contentLabel="onRequestClose Example"
+//           onRequestClose={this.handleCloseModal}
+//           className="Modal"
+//           overlayClassName="Overlay"
+//         >
+//           <p>Modal text!</p>
+//           <button onClick={this.handleCloseModal}>Close Modal</button>
+//         </ReactModal>
+//       </div>
+//     );
+//   }
+// }
+
+// const props = {};
+
+// ReactDOM.render(<ExampleApp {...props} />, document.getElementById("main"));
+export const ImageModal = ({ photo, description }) => {
+  return (
+    <div>
+      <img src={photo} alt={description} />
+    </div>
+  );
 };
 
-// const customStyles = {
-//   content: {
-//     top: "50%",
-//     left: "50%",
-//     right: "auto",
-//     bottom: "auto",
-//     marginRight: "-50%",
-//     transform: "translate(-50%, -50%)",
-//   },
-// };
-
 // // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
-// Modal.setAppElement("#yourAppElement");
-
-// function App() {
-//   let subtitle;
-//   const [modalIsOpen, setIsOpen] = React.useState(false);
-
-//   function openModal() {
-//     setIsOpen(true);
-//   }
-
-//   function afterOpenModal() {
-//     // references are now sync'd and can be accessed.
-//     subtitle.style.color = "#f00";
-//   }
-
-//   function closeModal() {
-//     setIsOpen(false);
-//   }
 
 //   return (
 //     <div>

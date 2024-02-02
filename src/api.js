@@ -10,3 +10,11 @@ export const fetchArticles = async (query, page) => {
 
   return response.data.results;
 };
+
+// export const totalPagesArticles = async () => {
+//   const response = await axios.get(BASE_URL, {
+//     params: { client_id: clientID, query },
+//   });
+
+//   return response.data.total_pages;
+// };
