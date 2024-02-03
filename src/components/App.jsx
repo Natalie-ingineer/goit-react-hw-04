@@ -15,13 +15,13 @@ export const App = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  const [total_pages, setTotalPages] = useState(1);
-  // const totalPages = useRef(0);
+  // const [total_pages, setTotalPages] = useState(1);
+  const totalPages = useRef(0);
 
   const searchArticles = async (newQuery) => {
     setQuery(`${Date.now()}/${newQuery}`);
     // setTotalPages(1);
-    // totalPages.current = 1;
+    totalPages.current = 1;
     setPage(1);
     setArticles([]);
   };
@@ -38,11 +38,13 @@ export const App = () => {
     async function fetchData() {
       try {
         setError(false);
+        setLoading(true);
         const fetchedData = await fetchArticles(query.split("/")[1], page);
-        setTotalPages(fetchedData.total_pages);
-        setLoading(total_pages !== page);
-        // totalPages.current = fetchData.total_pages;
+
         setArticles((prevArticles) => [...prevArticles, ...fetchedData]);
+        console.log(setArticles);
+        totalPages.current = fetchedData.total_pages;
+        console.log("Total Pages Updated:", totalPages.current);
       } catch (error) {
         setError(true);
       } finally {
@@ -59,7 +61,7 @@ export const App = () => {
       {error && <ErrorMessage />}
       {articles.length > 0 && <ImageGallery items={articles} />}
       {loading && <Loader load={loading} />}
-      {articles.length > 0 && !loading && (
+      {articles.length > 0 && !loading && !(totalPages.current > page) && (
         <LoadMoreBtn onClick={handleLoadMore} />
       )}
       <Toaster position="bottom-center" />
