@@ -19,10 +19,9 @@ export const App = () => {
 
   const searchArticles = async (newQuery) => {
     setQuery(`${Date.now()}/${newQuery}`);
-
-    totalPages.current = 1;
     setPage(1);
     setArticles([]);
+    totalPages.current = 1;
   };
 
   const handleLoadMore = () => {
@@ -44,10 +43,8 @@ export const App = () => {
           page
         );
         setArticles((prevArticles) => [...prevArticles, ...fetchedData]);
-        console.log(setArticles);
 
         totalPages.current = total_pages;
-        console.log("Total Pages Updated:", totalPages);
       } catch (error) {
         setError(true);
       } finally {
