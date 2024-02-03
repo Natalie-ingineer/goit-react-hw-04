@@ -20,7 +20,7 @@ export const App = () => {
 
   const searchArticles = async (newQuery) => {
     setQuery(`${Date.now()}/${newQuery}`);
-    setTotalPages(1);
+    // setTotalPages(1);
     // totalPages.current = 1;
     setPage(1);
     setArticles([]);
@@ -37,10 +37,10 @@ export const App = () => {
 
     async function fetchData() {
       try {
-        setLoading(total_pages !== page);
         setError(false);
         const fetchedData = await fetchArticles(query.split("/")[1], page);
         setTotalPages(fetchedData.total_pages);
+        setLoading(total_pages !== page);
         // totalPages.current = fetchData.total_pages;
         setArticles((prevArticles) => [...prevArticles, ...fetchedData]);
       } catch (error) {
@@ -51,7 +51,7 @@ export const App = () => {
     }
 
     fetchData();
-  }, [query, page, total_pages]);
+  }, [query, page]);
 
   return (
     <>

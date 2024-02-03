@@ -21,8 +21,8 @@ export const SearchBar = ({ onSearch }) => {
         <input
           name="query"
           type="text"
-          autocomplete="off"
-          autofocus
+          // autocomplete="off"
+          // autofocus
           placeholder="Search images and photos"
         />
         <button type="submit" className={css.button}>
