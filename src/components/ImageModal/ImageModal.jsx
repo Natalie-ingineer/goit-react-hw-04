@@ -1,5 +1,5 @@
 import css from "./ImageModal.module.css";
-import { useState } from "react";
+
 import Modal from "react-modal";
 
 const customStyles = {
@@ -13,16 +13,13 @@ const customStyles = {
   },
 };
 
-// Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 Modal.setAppElement("#root");
 
-// ReactDOM.render(<App />, appElement);
-
-export const ImageModal = ({ photoOpenModal, isOpen, onClose }) => {
+export const ImageModal = ({ photoModal, isOpen, onClose }) => {
   return (
     <div>
-      <Modal isOpen={isOpen} style={customStyles}>
-        <img src={photoOpenModal} />
+      <Modal isOpen={isOpen} style={customStyles} onRequestClose={onClose}>
+        <img src={photoModal} />
         <button onClick={() => onClose()}>close</button>
       </Modal>
     </div>

@@ -1,6 +1,5 @@
 import css from "./ImageGallery.module.css";
 import { ImageCard } from "../ImageCard/ImageCard";
-import { ImageModal } from "../ImageModal/ImageModal";
 
 export const ImageGallery = ({ items }) => {
   return (
@@ -10,13 +9,8 @@ export const ImageGallery = ({ items }) => {
           <ImageCard
             photo={item.urls.small}
             description={item.alt_description}
-            // onClick={() => openModal(item)}
+            modalPhoto={item.urls.regular}
           ></ImageCard>
-
-          <ImageModal
-            photoModal={item.urls.regular}
-            description={item.alt_description}
-          />
         </li>
       ))}
     </ul>
