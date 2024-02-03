@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { SearchBar } from "./SearchBar/SearchBar";
 import { ImageGallery } from "./ImageGallery/ImageGallery";
-import { ImageModal } from "./ImageModal/ImageModal";
+
 import { ErrorMessage } from "./ErrorMessage/ErrorMessage";
 import { LoadMoreBtn } from "./LoadMoreBtn/LoadMoreBtn";
 import { Loader } from "./Loader/Loader";
@@ -15,11 +15,13 @@ export const App = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  // const [total_pages, setTotalPages] = useState(1);
+  const [total_pages, setTotalPages] = useState(1);
+  // const totalPages = useRef(0);
 
   const searchArticles = async (newQuery) => {
     setQuery(`${Date.now()}/${newQuery}`);
-    // setTotalPages(1);
+    setTotalPages(1);
+    // totalPages.current = 1;
     setPage(1);
     setArticles([]);
   };
@@ -35,12 +37,11 @@ export const App = () => {
 
     async function fetchData() {
       try {
-        setLoading(true);
+        setLoading(total_pages !== page);
         setError(false);
         const fetchedData = await fetchArticles(query.split("/")[1], page);
-        // const fetchedTotalPage = await totalPagesArticles(total_pages);
-        // setTotalPages(fetchedTotalPage);
-
+        setTotalPages(fetchedData.total_pages);
+        // totalPages.current = fetchData.total_pages;
         setArticles((prevArticles) => [...prevArticles, ...fetchedData]);
       } catch (error) {
         setError(true);
@@ -50,7 +51,7 @@ export const App = () => {
     }
 
     fetchData();
-  }, [query, page]);
+  }, [query, page, total_pages]);
 
   return (
     <>

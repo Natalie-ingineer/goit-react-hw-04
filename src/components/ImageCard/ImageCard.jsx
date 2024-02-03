@@ -6,13 +6,21 @@ export const ImageCard = ({ photo, description, modalPhoto }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   return (
-    <div>
-      <img src={photo} alt={description} onClick={() => setModalIsOpen(true)} />
+    <div className={css.wraperImg}>
+      <img
+        width={300}
+        height={300}
+        className={css.imageCard}
+        src={photo}
+        alt={description}
+        onClick={() => setModalIsOpen(true)}
+      />
       {modalIsOpen && (
         <ImageModal
           isOpen={modalIsOpen}
           onClose={() => setModalIsOpen(false)}
           photoModal={modalPhoto}
+          description={description}
         ></ImageModal>
       )}
     </div>

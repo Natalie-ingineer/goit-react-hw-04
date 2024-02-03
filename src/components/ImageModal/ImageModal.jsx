@@ -15,12 +15,12 @@ const customStyles = {
 
 Modal.setAppElement("#root");
 
-export const ImageModal = ({ photoModal, isOpen, onClose }) => {
+export const ImageModal = ({ photoModal, description, isOpen, onClose }) => {
   return (
     <div>
       <Modal isOpen={isOpen} style={customStyles} onRequestClose={onClose}>
         <img src={photoModal} />
-        <button onClick={() => onClose()}>close</button>
+        <p>{description}</p>
       </Modal>
     </div>
   );

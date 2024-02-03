@@ -3,7 +3,7 @@ import { ImageCard } from "../ImageCard/ImageCard";
 
 export const ImageGallery = ({ items }) => {
   return (
-    <ul>
+    <ul className={css.imageList}>
       {items.map((item) => (
         <li key={item.id}>
           <ImageCard
